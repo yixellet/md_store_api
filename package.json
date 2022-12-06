@@ -1,0 +1,40 @@
+{
+  "name": "md_store_api",
+  "version": "0.0.1",
+  "description": "Backend for MD manager",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "start": "node app.js",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yixellet/gp-back.git"
+  },
+  "author": "OWGrant",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yixellet/gp-back/issues"
+  },
+  "homepage": "https://github.com/yixellet/gp-back#readme",
+  "devDependencies": {
+    "eslint": "^7.9.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "nodemon": "^2.0.4"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "celebrate": "^13.0.3",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-winston": "^4.2.0",
+    "helmet": "^4.1.1",
+    "pg-promise": "^10.9.2",
+    "validator": "^13.1.17",
+    "winston": "^3.4.0"
+  }
+}
