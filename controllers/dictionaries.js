@@ -1,20 +1,10 @@
-/* eslint-disable no-multi-str */
-const pgp = require('pg-promise')();
+const { db } = require('./db');
 const { ParameterizedQuery } = require('pg-promise');
-const {
-  DB_HOST,
-  DB_PORT,
-  DB_USER,
-  DB_PASSWORD,
-  DB_NAME
-} = require('../config');
-
-const db = pgp(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`);
 
 function getGroups(req, res) {
   const query = new ParameterizedQuery(
     {
-      text: `SELECT * FROM metadata.groups;`,
+      text: `SELECT * FROM metadata.groups ORDER BY id;`,
     },
   );
   db.any(query)
@@ -29,7 +19,7 @@ function getGroups(req, res) {
 function getAccessConditions(req, res) {
   const query = new ParameterizedQuery(
     {
-      text: `SELECT * FROM metadata.access_conditions;`,
+      text: `SELECT * FROM metadata.access_conditions ORDER BY id;`,
     },
   );
   db.any(query)
@@ -71,7 +61,7 @@ function getReferenceSystems(req, res) {
     });
 };
 
-function getRegions(req, res) {
+function getAllRegions(req, res) {
   const query = new ParameterizedQuery(
     {
       text: `SELECT * FROM metadata.regions;`,
@@ -86,10 +76,40 @@ function getRegions(req, res) {
     });
 };
 
+function getFederalDistricts(req, res) {
+  const query = new ParameterizedQuery(
+    {
+      text: `SELECT * FROM metadata.regions r WHERE r.parentregion_ref IS NULL;`,
+    },
+  );
+  db.any(query)
+    .then((data) => {
+      res.send({ data });
+    })
+    .catch((error) => {
+      res.send({ error });
+    });
+};
+
+function getRegionByFederalDistrict(req, res) {
+  const query = new ParameterizedQuery(
+    {
+      text: `SELECT * FROM metadata.regions r WHERE r.parentregion_ref = ${req.query.district};`,
+    },
+  );
+  db.any(query)
+    .then((data) => {
+      res.send({ data });
+    })
+    .catch((error) => {
+      res.send({ error });
+    });
+};
+
 function getScales(req, res) {
   const query = new ParameterizedQuery(
     {
-      text: `SELECT * FROM metadata.scales;`,
+      text: `SELECT * FROM metadata.scales ORDER BY id;`,
     },
   );
   db.any(query)
@@ -104,7 +124,7 @@ function getScales(req, res) {
 function getSecretClasses(req, res) {
   const query = new ParameterizedQuery(
     {
-      text: `SELECT * FROM metadata.secret_classes;`,
+      text: `SELECT * FROM metadata.secret_classes ORDER BY id;`,
     },
   );
   db.any(query)
@@ -131,10 +151,40 @@ function getStorageFormats(req, res) {
     });
 };
 
+function getStorageFormatsByGroup(req, res) {
+  const query = new ParameterizedQuery(
+    {
+      text: `SELECT * FROM metadata.storage_formats s WHERE s.group_ref = ${req.query.group} ORDER BY s.name;`,
+    },
+  );
+  db.any(query)
+    .then((data) => {
+      res.send({ data });
+    })
+    .catch((error) => {
+      res.send({ error });
+    });
+};
+
 function getSubtypes(req, res) {
   const query = new ParameterizedQuery(
     {
       text: `SELECT * FROM metadata.subtypes;`,
+    },
+  );
+  db.any(query)
+    .then((data) => {
+      res.send({ data });
+    })
+    .catch((error) => {
+      res.send({ error });
+    });
+};
+
+function getSubtypesByGroup(req, res) {
+  const query = new ParameterizedQuery(
+    {
+      text: `SELECT * FROM metadata.subtypes s WHERE s.group_ref = ${req.query.group} ORDER BY s.name;`,
     },
   );
   db.any(query)
@@ -151,9 +201,13 @@ module.exports = {
   getAccessConditions,
   getHeightSystems,
   getReferenceSystems,
-  getRegions,
+  getAllRegions,
+  getFederalDistricts,
+  getRegionByFederalDistrict,
   getScales,
   getSecretClasses,
   getStorageFormats,
-  getSubtypes
+  getSubtypes,
+  getSubtypesByGroup,
+  getStorageFormatsByGroup
 };
