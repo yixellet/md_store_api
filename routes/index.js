@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { getAllEntities } = require('../controllers/counterparties');
+const { getAllEntities, createNewPerson } = require('../controllers/counterparties');
 const {
     getGroups,
     getAccessConditions,
@@ -31,5 +31,6 @@ router.get('/subtypes', getSubtypes);
 router.get('/subtypesbygroup', getSubtypesByGroup);
 
 router.get('/entities', getAllEntities);
+router.get('/addperson', createNewPerson);
 
 module.exports = router;
