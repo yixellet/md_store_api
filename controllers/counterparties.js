@@ -20,6 +20,32 @@ function getAllEntities(req, res) {
     });
 };
 
+function createNewPerson(req, res) {
+  const query = new ParameterizedQuery({
+    text: `INSERT 
+           INTO counterparties.persons(name, patronym, surname, inn, regaddress_ref, regaddress_text, postaddress_ref, postaddress_text)
+           VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id;`,
+    values: [
+      req.query.name, 
+      req.query.patronym, 
+      req.query.surname, 
+      req.query.inn, 
+      req.query.regaddress_ref, 
+      req.query.regaddress_text, 
+      req.query.postaddress_ref, 
+      req.query.postaddress_text
+    ]
+  });
+  db.one(query)
+    .then((data) => {
+      res.send({ data });
+    })
+    .catch((error) => {
+      res.send({ error });
+    });
+}
+
 module.exports = {
-  getAllEntities
+  getAllEntities,
+  createNewPerson
 };
