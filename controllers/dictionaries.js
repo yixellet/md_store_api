@@ -184,7 +184,7 @@ function getSubtypes(req, res) {
 function getSubtypesByGroup(req, res) {
   const query = new ParameterizedQuery(
     {
-      text: `SELECT * FROM metadata.subtypes s WHERE s.group_ref = ${req.query.group} ORDER BY s.id;`,
+      text: `SELECT * FROM metadata.subtypes s WHERE s.group_ref = ${req.query.group} ORDER BY s.name;`,
     },
   );
   db.any(query)
