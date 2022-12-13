@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 const routes = require('./routes');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { API_PORT } = require('./config');
@@ -19,6 +20,10 @@ app.use('*', cors({
     'credentials',
   ],
   credentials: true,
+}));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true,
 }));
 app.use(requestLogger);
 app.use(routes);

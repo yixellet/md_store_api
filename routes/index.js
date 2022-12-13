@@ -15,6 +15,7 @@ const {
     getSubtypesByGroup,
     getStorageFormatsByGroup
 } = require('../controllers/dictionaries');
+const { createNewMapMetadata } = require('../controllers/metadata');
 
 router.get('/groups', getGroups);
 router.get('/access_conditions', getAccessConditions);
@@ -32,5 +33,7 @@ router.get('/subtypesbygroup', getSubtypesByGroup);
 
 router.get('/entities', getAllEntities);
 router.get('/addperson', createNewPerson);
+
+router.post('/addmetadata', createNewMapMetadata)
 
 module.exports = router;
