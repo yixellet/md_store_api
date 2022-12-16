@@ -13,8 +13,9 @@ const {
     getStorageFormats,
     getSubtypes,
     getSubtypesByGroup,
-    getStorageFormatsByGroup
+    getStorageFormatsByGroup,
 } = require('../controllers/dictionaries');
+const { getLetterTypes, addLetter } = require('../controllers/letters');
 const { createNewMapMetadata } = require('../controllers/metadata');
 
 router.get('/groups', getGroups);
@@ -30,6 +31,9 @@ router.get('/storage_formats', getStorageFormats);
 router.get('/storageformatsbygroup', getStorageFormatsByGroup);
 router.get('/subtypes', getSubtypes);
 router.get('/subtypesbygroup', getSubtypesByGroup);
+
+router.get('/letter_types', getLetterTypes);
+router.post('/add_letter', addLetter);
 
 router.get('/entities', getAllEntities);
 router.get('/addperson', createNewPerson);
