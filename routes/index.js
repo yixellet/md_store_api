@@ -15,6 +15,7 @@ const {
     getSubtypesByGroup,
     getStorageFormatsByGroup,
 } = require('../controllers/dictionaries');
+const { addressLiveSearch, getHouses, getApartments } = require('../controllers/gar');
 const { getLetterTypes, addLetter } = require('../controllers/letters');
 const { createNewMapMetadata } = require('../controllers/metadata');
 
@@ -38,6 +39,10 @@ router.post('/add_letter', addLetter);
 router.get('/entities', getAllEntities);
 router.get('/addperson', createNewPerson);
 
-router.post('/addmetadata', createNewMapMetadata)
+router.post('/addmetadata', createNewMapMetadata);
+
+router.get('/search_address', addressLiveSearch);
+router.get('/houses', getHouses);
+router.get('/apartments', getApartments);
 
 module.exports = router;
