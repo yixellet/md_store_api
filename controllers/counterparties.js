@@ -20,6 +20,24 @@ function getAllEntities(req, res) {
     });
 };
 
+function getPhoneTypes(req, res) {
+  const query = new ParameterizedQuery(
+    {
+      text: `SELECT id,
+              shortname,
+              fullname AS name
+             FROM counterparties.phone_types;`,
+    },
+  );
+  db.any(query)
+    .then((data) => {
+      res.send({ data });
+    })
+    .catch((error) => {
+      res.send({ error });
+    });
+};
+
 function createNewPerson(req, res) {
   const query = new ParameterizedQuery({
     text: `INSERT 
@@ -47,5 +65,6 @@ function createNewPerson(req, res) {
 
 module.exports = {
   getAllEntities,
+  getPhoneTypes,
   createNewPerson
 };

@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { getAllEntities, createNewPerson } = require('../controllers/counterparties');
+const { getAllEntities, createNewPerson, getPhoneTypes } = require('../controllers/counterparties');
 const {
     getGroups,
     getAccessConditions,
@@ -37,6 +37,7 @@ router.get('/letter_types', getLetterTypes);
 router.post('/add_letter', addLetter);
 
 router.get('/entities', getAllEntities);
+router.get('/phone_types', getPhoneTypes);
 router.get('/addperson', createNewPerson);
 
 router.post('/addmetadata', createNewMapMetadata);
