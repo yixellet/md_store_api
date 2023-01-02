@@ -39,6 +39,7 @@ function getPhoneTypes(req, res) {
 };
 
 function createNewPerson(req, res) {
+  console.log(req)
   const query = new ParameterizedQuery({
     text: `INSERT 
            INTO counterparties.persons(name, patronym, surname, inn, regaddress_ref, regaddress_text, postaddress_ref, postaddress_text)
@@ -56,7 +57,7 @@ function createNewPerson(req, res) {
   });
   db.one(query)
     .then((data) => {
-      res.send({ data });
+      res.status(201).send({ data });
     })
     .catch((error) => {
       res.send({ error });

@@ -38,7 +38,7 @@ router.post('/add_letter', addLetter);
 
 router.get('/entities', getAllEntities);
 router.get('/phone_types', getPhoneTypes);
-router.get('/addperson', createNewPerson);
+router.post('/add_person', createNewPerson);
 
 router.post('/addmetadata', createNewMapMetadata);
 
