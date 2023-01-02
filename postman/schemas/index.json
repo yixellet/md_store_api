@@ -3,13 +3,25 @@
   "info": {
     "version": "1.0.0",
     "title": "MD store API",
-    "description": "API for spatial metadata manager app"
+    "description": "API for spatial metadata manager app",
+    "contact": {
+      "name": "Kirill Kotelevsky",
+      "url": "https://www.cpapr.ru",
+      "email": "yixwellet@gmail.com"
+    },
   },
+  "servers": [
+    {
+      "url": "http://localhost:5000",
+      "description": "Development server"
+    }
+  ],
   paths: {
     "/groups": {
       "get": {
         "summary": "Получить список категорий пространственных данных",
         "description": "Запрашивает список категорий пространственных данных",
+        "operationId": "getGroups",
         "responses": {
           "200": {
             "description": "Everything is OK",
@@ -18,12 +30,32 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "type": "integer",
-                    
+                    "$ref": "#/components/schemas/Group"
                   }
                 }
               }
             }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Group": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+          },
+          "name": {
+            "type": "string"
+          },
+          "fullname": {
+            "type": "string"
+          },
+          "controller": {
+            "type": "string"
           }
         }
       }

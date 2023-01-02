@@ -28,6 +28,38 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Add Person",
+			"id": "1868854f-e08a-4b76-901b-ac100247d790",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"John\",\n    \"patronym\": \"Steven\",\n    \"surname\": \"Snow\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/add_person",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"add_person"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
