@@ -4,5 +4,29 @@
     "version": "1.0.0",
     "title": "MD store API",
     "description": "API for spatial metadata manager app"
+  },
+  paths: {
+    "/groups": {
+      "get": {
+        "summary": "Получить список категорий пространственных данных",
+        "description": "Запрашивает список категорий пространственных данных",
+        "responses": {
+          "200": {
+            "description": "Everything is OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer",
+                    
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }
