@@ -1,0 +1,33 @@
+{
+	"info": {
+		"_postman_id": "7efef5ab-7a64-424f-93d2-7b69f881ad16",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "12106531-7efef5ab-7a64-424f-93d2-7b69f881ad16"
+	},
+	"item": [
+		{
+			"name": "Groups",
+			"id": "d511d087-54d0-4acc-bea0-93700bc10431",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/groups",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"groups"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
