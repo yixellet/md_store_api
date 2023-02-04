@@ -60,6 +60,43 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Get all letters",
+			"id": "74c53ede-e552-4bbf-80fd-1fb2407c23e1",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/letters",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"letters"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get letter by ID",
+			"id": "6463c12f-5992-4660-9814-14f6d0040cf6",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
 		}
 	]
 }
