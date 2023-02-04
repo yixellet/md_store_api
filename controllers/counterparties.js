@@ -39,20 +39,20 @@ function getPhoneTypes(req, res) {
 };
 
 function createNewPerson(req, res) {
-  console.log(req)
   const query = new ParameterizedQuery({
     text: `INSERT 
-           INTO counterparties.persons(name, patronym, surname, inn, regaddress_ref, regaddress_text, postaddress_ref, postaddress_text)
+           INTO counterparties.persons(
+            name, patronym, surname, inn, regaddress_ref, regaddress_text, postaddress_ref, postaddress_text)
            VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id;`,
     values: [
-      req.query.name, 
-      req.query.patronym, 
-      req.query.surname, 
-      req.query.inn, 
-      req.query.regaddress_ref, 
-      req.query.regaddress_text, 
-      req.query.postaddress_ref, 
-      req.query.postaddress_text
+      req.body.name, 
+      req.body.patronym, 
+      req.body.surname, 
+      req.body.inn, 
+      req.body.regaddress_ref, 
+      req.body.regaddress_text, 
+      req.body.postaddress_ref, 
+      req.body.postaddress_text
     ]
   });
   db.one(query)
@@ -62,10 +62,38 @@ function createNewPerson(req, res) {
     .catch((error) => {
       res.send({ error });
     });
-}
+};
+
+function createNewPersonPhone(req, res) {
+  const query = new ParameterizedQuery({
+    text: `WITH phone AS (
+           INSERT INTO counterparties.phone_numbers("number")
+            VALUES (${req.body.number})
+           RETURNING id)
+           INSERT INTO counterparties.persons_phones(
+            person_ref,
+            phone_ref)
+           VALUES (${req.body.id}, (SELECT id FROM phone));`
+  })
+};
+
+function createNewPersonEmail(req, res) {
+  const query = new ParameterizedQuery({
+    text: `WITH email AS (
+           INSERT INTO counterparties.emails(email)
+            VALUES (${req.body.email})
+           RETURNING id)
+           INSERT INTO counterparties.persons_emails(
+            person_ref,
+            email_ref)
+           VALUES (${req.body.id}, (SELECT id FROM email));`
+  })
+};
 
 module.exports = {
   getAllEntities,
   getPhoneTypes,
-  createNewPerson
+  createNewPerson,
+  createNewPersonPhone,
+  createNewPersonEmail
 };

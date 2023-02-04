@@ -8,7 +8,7 @@
       "name": "Kirill Kotelevsky",
       "url": "https://www.cpapr.ru",
       "email": "yixwellet@gmail.com"
-    },
+    }
   },
   "servers": [
     {
@@ -16,7 +16,7 @@
       "description": "Development server"
     }
   ],
-  paths: {
+  "paths": {
     "/groups": {
       "get": {
         "summary": "Получить список категорий пространственных данных",
@@ -46,7 +46,7 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "integer",
+            "type": "integer"
           },
           "name": {
             "type": "string"

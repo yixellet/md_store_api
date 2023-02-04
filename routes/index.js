@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { getAllEntities, createNewPerson, getPhoneTypes } = require('../controllers/counterparties');
+const { getAllEntities, createNewPerson, getPhoneTypes, createNewPersonPhone, createNewPersonEmail } = require('../controllers/counterparties');
 const {
     getGroups,
     getAccessConditions,
@@ -15,9 +15,11 @@ const {
     getSubtypesByGroup,
     getStorageFormatsByGroup,
 } = require('../controllers/dictionaries');
-const { addressLiveSearch, getHouses, getApartments } = require('../controllers/gar');
-const { getLetterTypes, addLetter } = require('../controllers/letters');
+const { addressLiveSearch, getHouses, getApartments, getObjectLevel, getObjectParents } = require('../controllers/gar');
+const { addLetter } = require('../controllers/letters');
 const { createNewMapMetadata } = require('../controllers/metadata');
+
+const letterRouter = require('./letters');
 
 router.get('/groups', getGroups);
 router.get('/access_conditions', getAccessConditions);
@@ -33,17 +35,22 @@ router.get('/storageformatsbygroup', getStorageFormatsByGroup);
 router.get('/subtypes', getSubtypes);
 router.get('/subtypesbygroup', getSubtypesByGroup);
 
-router.get('/letter_types', getLetterTypes);
+router.use('/letters', letterRouter);
+
 router.post('/add_letter', addLetter);
 
 router.get('/entities', getAllEntities);
 router.get('/phone_types', getPhoneTypes);
 router.post('/add_person', createNewPerson);
+router.post('/add_person_phone', createNewPersonPhone);
+router.post('/add_person_email', createNewPersonEmail);
 
 router.post('/addmetadata', createNewMapMetadata);
 
 router.get('/search_address', addressLiveSearch);
 router.get('/houses', getHouses);
 router.get('/apartments', getApartments);
+router.get('/level', getObjectLevel);
+router.get('/parents', getObjectParents);
 
 module.exports = router;
