@@ -1,4 +1,4 @@
-const { getIncorporationForm, getIncorporationForms } = require('../../controllers/counterparties/entities/incorporation_forms');
+const { getIncorporationForm, getIncorporationForms } = require('../../../controllers/counterparties/entities/incorporation_forms');
 
 const router = require('express').Router();
 

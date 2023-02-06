@@ -1,4 +1,4 @@
-const { getCommercialTypes, getCommercialType } = require('../../controllers/counterparties/entities/commercial_types');
+const { getCommercialTypes, getCommercialType } = require('../../../controllers/counterparties/entities/commercial_types');
 
 const router = require('express').Router();
 

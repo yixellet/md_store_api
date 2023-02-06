@@ -1,4 +1,4 @@
-const { getLegalForms, getLegalForm, createLegalForm, updateLegalForm, deleteLegalForm } = require('../../controllers/counterparties/entities/legal_forms');
+const { getLegalForms, getLegalForm, createLegalForm, updateLegalForm, deleteLegalForm } = require('../../../controllers/counterparties/entities/legal_forms');
 
 const router = require('express').Router();
 

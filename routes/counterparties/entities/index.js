@@ -1,4 +1,4 @@
-const { getAllEntities } = require('../../controllers/counterparties/entities');
+const { getAllEntities } = require('../../../controllers/counterparties/entities');
 
 const router = require('express').Router();
 
