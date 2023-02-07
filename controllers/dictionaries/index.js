@@ -4,13 +4,7 @@ const { ParameterizedQuery } = require('pg-promise');
 function getDictionaries(req, res) {
   const query = new ParameterizedQuery(
     {
-      text: `SELECT f.id, 
-                f.name, 
-                f.description, 
-                json_build_object('id', t.id, 'name', t.name, 'description', t.description) AS type
-              FROM metadata.metadata_fields f
-                LEFT JOIN metadata.metadata_field_types t ON f.type = t.id
-              WHERE f.type = 11;`,
+      text: `SELECT * FROM metadata.dictionaries ORDER BY id;`,
     },
   );
   db.any(query)
@@ -25,13 +19,7 @@ function getDictionaries(req, res) {
 function getDictionary(req, res) {
   const query = new ParameterizedQuery(
     {
-      text: `SELECT f.id, 
-                f.name, 
-                f.description, 
-                json_build_object('id', t.id, 'name', t.name, 'description', t.description) AS type
-              FROM metadata.metadata_fields f
-                LEFT JOIN metadata.metadata_field_types t ON f.type = t.id
-              WHERE f.type = 11 AND f.id = $1;`,
+      text: `SELECT * FROM metadata.dictionaries ORDER BY id = $1;`,
       values: [req.params.id]
     },
   );
