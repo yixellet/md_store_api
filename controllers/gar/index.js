@@ -1,4 +1,4 @@
-const { db } = require('./db');
+const { db } = require('../db');
 
 const { ParameterizedQuery } = require('pg-promise');
 
@@ -43,16 +43,6 @@ function getApartments(req, res) {
     });
 };
 
-function getObjectLevel(req, res) {
-  db.one(`SELECT ro.levelid FROM gar.reestr_objects ro	WHERE ro.objectid = ${req.query.objectid};`)
-    .then((data) => {
-      res.send({ data });
-    })
-    .catch((error) => {
-      res.send({ error });
-    });
-};
-
 function getObjectParents(req, res) {
   db.any(`SELECT * FROM gar.all_parents_adm(${req.query.objectid});`)
     .then((data) => {
@@ -67,6 +57,5 @@ module.exports = {
   addressLiveSearch,
   getHouses,
   getApartments,
-  getObjectLevel,
   getObjectParents
 };
