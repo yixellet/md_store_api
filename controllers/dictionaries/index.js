@@ -19,7 +19,7 @@ function getDictionaries(req, res) {
 function getDictionary(req, res) {
   const query = new ParameterizedQuery(
     {
-      text: `SELECT * FROM metadata.dictionaries ORDER BY id = $1;`,
+      text: `SELECT * FROM metadata.dictionaries WHERE id = $1;`,
       values: [req.params.id]
     },
   );
