@@ -5,7 +5,8 @@ const { getPersonQuery } = require('./queries');
 
 function getPersons(req, res) {
   const size = req.query.size ? req.query.size : 10;
-  const offset = req.query.page ? (req.query.page - 1) * size : 0;
+  const page = req.query.page ? Number(req.query.page) : 1;
+  const offset = (page - 1) * size;
   const query = new ParameterizedQuery(
     {
       text: `SELECT p.id,
@@ -39,14 +40,21 @@ function getPersons(req, res) {
                           LEFT JOIN counterparties.phone_numbers p ON pp.phone_ref = p.id
                           LEFT JOIN counterparties.phone_types t ON pp.phonetype_ref = t.id
                       GROUP BY pp.person_ref) pp ON p.id = pp.person_ref
-              ORDER BY p.id
+              ORDER BY p.surname, p.name
               LIMIT ${size}
               OFFSET ${offset};`,
     },
   );
   db.any(query)
     .then((data) => {
-      res.send(data);
+      db.one('SELECT count(*) FROM counterparties.persons;')
+        .then((count) => {
+          res.send({
+            data: data,
+            totalPages: Math.ceil(count.count / size),
+            currentPage: page,
+          });
+        });
     })
     .catch((error) => {
       res.send({ error });

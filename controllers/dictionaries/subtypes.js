@@ -11,7 +11,7 @@ function getSubtypes(req, res) {
                 s.fullname
               FROM metadata.subtypes s
                 LEFT JOIN metadata.groups g ON s.group_ref = g.id
-              ${req.query.group ? ` WHERE s.group_ref = ${req.query.group}` : ''}
+              ${req.query.group ? ` WHERE s.group_ref IN (${req.query.group})` : ''}
               ORDER BY s.group_ref;`,
     },
   );
