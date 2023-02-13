@@ -9,7 +9,7 @@ function getLetterTypes(req, res) {
   );
   db.any(query)
     .then((data) => {
-      res.send({ data });
+      res.send(data);
     })
     .catch((error) => {
       res.send({ error });
@@ -24,10 +24,10 @@ function getLetterType(req, res) {
   );
   db.one(query)
     .then((data) => {
-      res.send({ data });
+      res.send(data);
     })
     .catch((error) => {
-      res.send(error.message);
+      res.send({ error });
     });
 };
 
