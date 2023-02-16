@@ -10,13 +10,13 @@ function getFields(req, res) {
               f.description,
               json_build_object('id', t.id, 'name', t.name, 'description', t.description) AS type,
               f.comment
-              ${req.query.group ? ', g.mandatory' : ''}
+              ${req.query.group ? ', g.mandatory, f.order' : ''}
             FROM metadata.metadata_fields f
               JOIN metadata.metadata_field_types t ON f.type = t.id
               ${req.query.group ? 
                 `JOIN metadata.groups_fields g ON f.id = g.field_ref WHERE g.group_ref = ${req.query.group}` : 
                 ''}
-            ORDER BY f.id;`
+            ORDER BY f.order ASC;`
     },
   );
   db.any(query)
