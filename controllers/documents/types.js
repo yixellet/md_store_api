@@ -1,10 +1,10 @@
 const { db } = require('../db');
 const { ParameterizedQuery } = require('pg-promise');
 
-function getLetterTypes(req, res) {
+function getDocumentTypes(req, res) {
   const query = new ParameterizedQuery(
     {
-      text: `SELECT * FROM metadata.official_letter_types ORDER BY id;`,
+      text: `SELECT * FROM metadata.document_types ORDER BY id;`,
     },
   );
   db.any(query)
@@ -16,10 +16,10 @@ function getLetterTypes(req, res) {
     });
 };
 
-function getLetterType(req, res) {
+function getDocumentType(req, res) {
   const query = new ParameterizedQuery(
     {
-      text: `SELECT * FROM metadata.official_letter_types WHERE id=${req.params.id};`,
+      text: `SELECT * FROM metadata.document_types WHERE id=${req.params.id};`,
     },
   );
   db.one(query)
@@ -32,6 +32,6 @@ function getLetterType(req, res) {
 };
 
 module.exports = {
-  getLetterTypes,
-  getLetterType
+  getDocumentTypes,
+  getDocumentType
 };
