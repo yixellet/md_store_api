@@ -10,7 +10,7 @@ function getRegions(req, res) {
               FROM metadata.regions r
                 JOIN metadata.regions d ON r.parentregion_ref = d.id
               WHERE r.parentregion_ref ${req.query.district ? `=${req.query.district}` :'IS NOT NULL'}
-              ORDER BY r.parentregion_ref;`,
+              ORDER BY r.name;`,
     },
   );
   db.any(query)

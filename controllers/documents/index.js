@@ -28,12 +28,13 @@ function getDocuments(req, res) {
                   FROM counterparties.counterparties c
                   left JOIN counterparties.entities e ON c.cp_id = e.id
                   left JOIN counterparties.persons p ON c.cp_id = p.id) c ON ol.addressee_ref = c.id
-            ORDER BY ol.id;;`,
+            ${req.query.type ? `WHERE t.id=${req.query.type}` :''}
+            ORDER BY ol.id;`,
     },
   );
   db.any(query)
     .then((data) => {
-      res.send({ data });
+      res.send(data);
     })
     .catch((error) => {
       res.send(error);
@@ -72,7 +73,7 @@ function getDocument(req, res) {
   );
   db.one(query)
     .then((data) => {
-      res.send({ data });
+      res.send(data);
     })
     .catch((error) => {
       res.send(error.message);
