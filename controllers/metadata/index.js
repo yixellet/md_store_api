@@ -18,10 +18,9 @@ function getAllMetadata(req, res) {
     });
 };
 
-function createNewMapMetadata(req, res) {
+function createNewRecord(req, res) {
   const query = new ParameterizedQuery({
-    text: `INSERT 
-           INTO metadata.maps_ers(
+    text: `INSERT INTO metadata.metadata(
               scale, 
               storageformat_ref,
               minscale,
@@ -42,35 +41,39 @@ function createNewMapMetadata(req, res) {
               objectquantity,
               maxareastatedate,
               areastatedate,
-              objectchangedat,
-              regions_ref,
+              objectchangedate,
+              heightsystem_ref,
+              region_ref,
+              group_ref,
               location_ref,
               geom
            )
-           VALUES(${req.body.scale}, 
-            ${req.body.storageFormat}, 
-            ${req.body.minScale}, 
-            ${req.body.objectCreateDate}, 
-            ${req.body.name}, 
-            ${req.body.referenceSystem}, 
-            1, 
-            1, 
-            ${req.body.secretClass}, 
-            NULL, 
-            NULL, 
-            ${req.body.accessCondition}, 
-            NULL, 
-            ${req.body.subtype}, 
-            NULL, 
-            NULL, 
-            ${req.body.nomenclature}, 
-            NULL, 
-            NULL, 
-            ${req.body.areaStateDate}, 
-            ${req.body.objectChangeDate}, 
-            ${req.body.region}, 
-            1, 
-            ST_GeomFromText(${req.body.geomWKT})) RETURNING id;`
+           VALUES(${req.body.scale || 'NULL'}, 
+            ${req.body.storageformat_ref || 'NULL'}, 
+            ${req.body.minscale || 'NULL'}, 
+            ${req.body.objectcreatedat ? `'${req.body.objectcreatedat}'` : 'NULL'}, 
+            ${req.body.name ? `'${req.body.name}'` : 'NULL'}, 
+            ${req.body.referencesystem_ref || 'NULL'}, 
+            ${req.body.rightholder_ref || 'NULL'}, 
+            ${req.body.creator_ref || 'NULL'}, 
+            ${req.body.secretclass_ref || 'NULL'}, 
+            ${req.body.extraregioninfo ? `'${req.body.extraregioninfo}'` : 'NULL'},
+            ${req.body.comment ? `'${req.body.comment}'` : 'NULL'}, 
+            ${req.body.accesscondition_ref || 'NULL'}, 
+            ${req.body.guid ? `'${req.body.guid}'` : 'NULL'}, 
+            ${req.body.subtype_ref || 'NULL'}, 
+            ${req.body.incomingdoc_ref || 'NULL'},
+            ${req.body.outgoingdoc_ref || 'NULL'}, 
+            ${req.body.nomenclature ? `'${req.body.nomenclature}'` : 'NULL'}, 
+            ${req.body.objectquantity || 'NULL'}, 
+            ${req.body.maxareastatedate ? `'${req.body.maxareastatedate}'` : 'NULL'}, 
+            ${req.body.areastatedate ? `'${req.body.areastatedate}'` : 'NULL'}, 
+            ${req.body.objectchangedat ? `'${req.body.objectchangedat}'` : 'NULL'}, 
+            ${req.body.heightsystem_ref || 'NULL'}, 
+            ${req.body.region_ref || 'NULL'}, 
+            ${req.body.group_ref || 'NULL'}, 
+            ${req.body.location_ref || 'NULL'},
+            ${req.body.geom ? `ST_GeomFromText('${req.body.geom}')` : 'NULL'}) RETURNING id;`
   });
   db.one(query)
     .then((data) => {
@@ -83,5 +86,5 @@ function createNewMapMetadata(req, res) {
 
 module.exports = {
   getAllMetadata,
-  createNewMapMetadata
+  createNewRecord
 };
