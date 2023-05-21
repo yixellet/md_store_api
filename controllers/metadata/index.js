@@ -19,6 +19,7 @@ function getAllMetadata(req, res) {
 };
 
 function createNewRecord(req, res) {
+  console.log(req.body)
   const query = new ParameterizedQuery({
     text: `INSERT INTO metadata.metadata(
               scale, 
@@ -27,16 +28,16 @@ function createNewRecord(req, res) {
               objectcreatedat,
               name,
               referencesystem_ref,
-              rightholder_ref,
-              creator_ref,
+              rightholder,
+              creator,
               secretclass_ref,
               extraregioninfo,
               comment,
               accesscondition_ref,
               guid,
               subtype_ref,
-              incomingdoc_ref,
-              outgoingdoc_ref,
+              incomingdoc,
+              outgoingdoc,
               nomenclature,
               objectquantity,
               maxareastatedate,
@@ -45,7 +46,7 @@ function createNewRecord(req, res) {
               heightsystem_ref,
               region_ref,
               group_ref,
-              location_ref,
+              location,
               geom
            )
            VALUES(${req.body.scale || 'NULL'}, 
@@ -54,16 +55,16 @@ function createNewRecord(req, res) {
             ${req.body.objectcreatedat ? `'${req.body.objectcreatedat}'` : 'NULL'}, 
             ${req.body.name ? `'${req.body.name}'` : 'NULL'}, 
             ${req.body.referencesystem_ref || 'NULL'}, 
-            ${req.body.rightholder_ref || 'NULL'}, 
-            ${req.body.creator_ref || 'NULL'}, 
+            ${req.body.rightholder ? `'${req.body.rightholder}'` : 'NULL'}, 
+            ${req.body.creator ? `'${req.body.creator}'` : 'NULL'}, 
             ${req.body.secretclass_ref || 'NULL'}, 
             ${req.body.extraregioninfo ? `'${req.body.extraregioninfo}'` : 'NULL'},
             ${req.body.comment ? `'${req.body.comment}'` : 'NULL'}, 
             ${req.body.accesscondition_ref || 'NULL'}, 
             ${req.body.guid ? `'${req.body.guid}'` : 'NULL'}, 
             ${req.body.subtype_ref || 'NULL'}, 
-            ${req.body.incomingdoc_ref || 'NULL'},
-            ${req.body.outgoingdoc_ref || 'NULL'}, 
+            ${req.body.incomingdoc ? `'${req.body.incomingdoc}'` : 'NULL'},
+            ${req.body.outgoingdoc ? `'${req.body.outgoingdoc}'` : 'NULL'}, 
             ${req.body.nomenclature ? `'${req.body.nomenclature}'` : 'NULL'}, 
             ${req.body.objectquantity || 'NULL'}, 
             ${req.body.maxareastatedate ? `'${req.body.maxareastatedate}'` : 'NULL'}, 
@@ -72,7 +73,7 @@ function createNewRecord(req, res) {
             ${req.body.heightsystem_ref || 'NULL'}, 
             ${req.body.region_ref || 'NULL'}, 
             ${req.body.group_ref || 'NULL'}, 
-            ${req.body.location_ref || 'NULL'},
+            ${req.body.location ? `'${req.body.location}'` : 'NULL'},
             ${req.body.geom ? `ST_GeomFromText('${req.body.geom}')` : 'NULL'}) RETURNING id;`
   });
   db.one(query)
@@ -80,6 +81,7 @@ function createNewRecord(req, res) {
       res.send({ data });
     })
     .catch((error) => {
+      console.log(error)
       res.send({ error });
     });
 }
